@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>History</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <main class="main">
+        {% for field in objects %}
+            <li><b>{{ field.id }}:</b> {{ field.date_now}}</li>
+            <div  class="container">
+                <span>Temperatura: {{field.temperature}}</span>
+                <span>Humedad Aire: {{field.air_humidity}}</span>
+                <span>Presión: {{field.pressure}}</span>
+                <span>Altitud: {{field.altitude}}</span>
+                <span>Humedad Tierra: {{field.ground_humidity}}</span>
+            </div>
+        {% endfor %}
+    </main>
+</body>
+</html>
