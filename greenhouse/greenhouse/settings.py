@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-994cxct3it(gu-o4r^^diq&my9t9va_^(r32zvt@ptc@bw0l4d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.12','127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'housefts',
+    'bootstrap4',
+    'widget_tweaks',
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -122,3 +126,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#BROKER_URL = 'amqp://guest:guest@localhost//'
+CELERY_BROKER_URL = 'redis://localhost:6379'
+
+from datetime import timedelta
+CELERYBEAT_SCHEDULE = {
+    'add-every-30-seconds': {
+        'task': 'housefts.task.saveEnv',
+        'schedule': timedelta(seconds=5)
+    },
+}
+
+#Si no usamos CELERY_TIMEZONE, se usará por defecto el TIME_ZONE que use nuestra app Django
+CELERY_TIMEZONE = 'Europe/London'

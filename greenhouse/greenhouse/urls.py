@@ -16,8 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+# Importamos 'DefaultRouter' de Django REST Framework y la vista 'jugos' 
+from rest_framework.routers import DefaultRouter
+from housefts import views as house_views
+ 
+router = DefaultRouter()
+router.register(r'getEnviroment', house_views.EnviromentViewSet, basename='house')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('housefts/',include('housefts.urls')),
+    path('', include(router.urls)),
+    path('house/crear', house_views.SaveEnviroment.as_view(template_name = "house/crear.html"), name='crear'),
 ]
